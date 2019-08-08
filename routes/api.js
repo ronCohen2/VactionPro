@@ -3,15 +3,14 @@ const router = express.Router();
 const userRouter = require("./api/user");
 const adminRouter = require("./api/admin");
 const authRouter = require("./api/auth");
-const reportsRouter = require("./api/reports");
-
-router.get("/", (req, res) => {
-  res.send("this is api page ");
-});
+// const auth = require("../../middleware/auth");
 
 router.use("/users", userRouter);
 router.use("/admin", adminRouter);
 router.use("/auth", authRouter);
-router.use("/reports", reportsRouter);
+
+router.get("/", (req, res) => {
+  res.send({ msg: "Welcome to Vac-api " });
+});
 
 module.exports = router;
