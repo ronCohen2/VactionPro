@@ -31,14 +31,16 @@ class Dashbord extends Component {
   }
 
   render() {
+    const { admin } = this.props.user;
+
+    if (admin == false) {
+      this.props.history.push("/login");
+    }
     const { allVacation } = this.props.admin;
     const { users } = this.props.admin;
     const { favoriteSummary } = this.props.admin;
     const fo = this.props.admin.followers;
-    const { admin } = this.props.user;
-    if (admin == false) {
-      this.props.history.push("/login");
-    }
+
     return (
       <Container>
         <Row>

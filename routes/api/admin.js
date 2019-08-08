@@ -25,7 +25,7 @@ let pool;
 router.get("/vacation", [auth, admin], async (req, res) => {
   try {
     const [result, fields] = await pool.execute(`select * from vacation`);
-    res.status(200).send(result);
+    res.status(200).send({ status: 200, vacation: result });
   } catch {
     res.status(404).send({ msg: "error in get vacation" });
   }

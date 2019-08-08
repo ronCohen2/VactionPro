@@ -1,4 +1,4 @@
-export const getAllVacation = () => {
+export const getAllVacation = toLoginPage => {
   return (dispatch, getState) => {
     fetch("http://localhost:5050/api/users/vacation", {
       method: "GET",
@@ -8,16 +8,21 @@ export const getAllVacation = () => {
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "ALL_VACATION", data: data });
+        if (data.status == 403) {
+          dispatch({ type: "LOG_OUT" });
+        }
+        if (data.status == 200) {
+          dispatch({ type: "ALL_VACATION", data: data.vacation });
+        }
       })
       .catch(() => {
         dispatch({ type: "ALL_VACATION_ERR" });
       });
   };
 };
-export const getVacationDetails = id => {
+export const getVacationDetails = (id, toLoginPage) => {
   return (dispatch, getState) => {
-    fetch(`http://localhost:5050/api/admin/vacation/${id}`, {
+    fetch(`http://localhost:5050/api/users/vacation/${id}`, {
       method: "GET",
       headers: {
         "x-token": localStorage.getItem("x-token")
@@ -25,7 +30,9 @@ export const getVacationDetails = id => {
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "VACATION_DETAILS", data: data[0] });
+        if (data.status == 200) {
+          dispatch({ type: "VACATION_DETAILS", data: data.details[0] });
+        }
       })
       .catch(() => {
         console.log("failed");

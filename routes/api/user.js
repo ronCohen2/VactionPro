@@ -23,13 +23,13 @@ let pool;
 router.get("/", [auth, admin], async (req, res) => {
   const [result] = await pool.execute("select * from users");
   if (result.length > 0) {
-    res.send(result);
+    res.send({ status: 200, user: result });
   }
 });
 // all vacations
 router.get("/vacation", auth, async (req, res) => {
   const [result] = await pool.execute(`select * from vacation`);
-  res.status(200).send(result);
+  res.status(200).send({ status: 200, vacation: result });
 });
 
 // get vacation by id
@@ -39,7 +39,7 @@ router.get("/vacation/:id", auth, async (req, res) => {
     `select * from vacation where unique_id =?`,
     [id]
   );
-  res.send(result);
+  res.status(200).send({ status: 200, details: result });
 });
 
 //Follow after vacation

@@ -8,7 +8,9 @@ export const getAllVacationAdmin = () => {
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "ALL_VACATION_ADMIN", data: data });
+        if (data.status == 200) {
+          dispatch({ type: "ALL_VACATION_ADMIN", data: data.vacation });
+        }
       })
       .catch(() => {
         dispatch({ type: "ALL_VACATION_ERR" });
@@ -101,7 +103,12 @@ export const getAllUsers = users => {
     })
       .then(res => res.json())
       .then(data => {
-        dispatch({ type: "GET_USERS", users: data });
+        if (data.status == 403) {
+          dispatch({ type: "LOG_OUT" });
+        }
+        if (data.status == 200) {
+          dispatch({ type: "GET_USERS", users: data.user });
+        }
       })
       .catch(() => {
         alert("Error in get User");

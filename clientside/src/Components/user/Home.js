@@ -11,11 +11,12 @@ class Home extends Component {
     super(props);
     this.state = {};
   }
+
   componentDidMount() {
     const { user_id } = this.props.user;
     this.props.getUserFollowVacation(user_id);
     this.interval1 = setInterval(() => {
-      this.props.getVacation();
+      this.props.getVacation(this.toLoginPage);
     }, 1000);
   }
   componentWillUnmount() {
@@ -28,6 +29,9 @@ class Home extends Component {
       AllVacation: this.props.vacation.vacation
     });
   }
+  toLoginPage = () => {
+    this.props.Logout();
+  };
 
   render() {
     const { userConnected, admin } = this.props.user;
@@ -84,12 +88,13 @@ class Home extends Component {
 }
 const mapDispatchToProps = dispatch => {
   return {
-    getVacation: () => {
-      dispatch(getAllVacation());
+    getVacation: toLoginPage => {
+      dispatch(getAllVacation(toLoginPage));
     },
     getUserFollowVacation: id => {
       dispatch(getUserFollowVacation(id));
-    }
+    },
+    Logout: () => dispatch({ type: "LOG_OUT" })
   };
 };
 const mapStateToProps = state => {

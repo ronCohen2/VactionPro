@@ -20,8 +20,11 @@ class VacationDetails extends Component {
   }
   componentDidMount() {
     const VacationId = this.props.match.params.id;
-    this.props.getVacationDetails(VacationId);
+    this.props.getVacationDetails(VacationId, this.toLoginPage);
   }
+  toLoginPage = () => {
+    this.props.history.push("/login");
+  };
   render() {
     const { vacationDeatils } = this.props.vacation;
     const { userConnected } = this.props.user;
@@ -91,7 +94,8 @@ const mapStateToProps = state => {
 };
 const mapDispatchToProps = dispatch => {
   return {
-    getVacationDetails: id => dispatch(getVacationDetails(id))
+    getVacationDetails: (id, toLoginPage) =>
+      dispatch(getVacationDetails(id, toLoginPage))
   };
 };
 export default connect(
