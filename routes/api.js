@@ -10,7 +10,7 @@ router.use("/admin", adminRouter);
 router.use("/auth", authRouter);
 
 router.get("/", (req, res) => {
-  res.send({ msg: "Welcome to Vac-api " });
+  res.send({ msg: "Welcome to Vac-api ! " });
 });
 
 module.exports = router;

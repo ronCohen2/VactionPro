@@ -1,6 +1,6 @@
 
 # dependencies
-/node_modulesrm -r .git
+/node_modulesrm 
 
 
 
